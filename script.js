@@ -1,3 +1,9 @@
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        convertNumber();
+    }
+});
+
 function convertNumber() {
 
     const NumberInput = document.getElementById("number").value;
@@ -22,8 +28,8 @@ function convertNumber() {
         for (; i < numberInput.length; i++) {
             const char = numberInput[i].toLowerCase();
             let value;
-            if(char===' '){
-                value=undefined
+            if (char === ' ') {
+                value = undefined
             }
             if (char >= 'a' && char <= 'z') {    // convert a to z into respective numbers 10 to 35
 
@@ -89,7 +95,7 @@ function convertNumber() {
     let decimalNumber = decimalConvertor(digitArray, fromBaseInput);
 
     let ans = requiredBaseConverter(decimalNumber, toBaseInput);
-    
+
     ans = sign === '-' ? sign + ans : ans;
 
     document.getElementById("result").textContent = ans;
