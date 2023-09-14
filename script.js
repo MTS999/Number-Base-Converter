@@ -22,6 +22,9 @@ function convertNumber() {
         for (; i < numberInput.length; i++) {
             const char = numberInput[i].toLowerCase();
             let value;
+            if(char===' '){
+                value=undefined
+            }
             if (char >= 'a' && char <= 'z') {    // convert a to z into respective numbers 10 to 35
 
                 value = char.charCodeAt(0) - 'a'.charCodeAt(0) + 10;
@@ -37,7 +40,7 @@ function convertNumber() {
 
     // check if the input string is valid 
     function isValid(result, base) {
-        for (let i = 1; i < digitArray.length; i++) {
+        for (let i = 0; i < digitArray.length; i++) {
             if (digitArray[i] === undefined || digitArray[i] > base) {
                 return false;
             }
@@ -77,12 +80,16 @@ function convertNumber() {
 
 
     const digitArray = convertStringToCustomBaseArray(numberInput);
+
     if (!isValid(digitArray, fromBaseInput)) {
         document.getElementById("result").textContent = "Invalid input";
         return
     }
+
     let decimalNumber = decimalConvertor(digitArray, fromBaseInput);
+
     let ans = requiredBaseConverter(decimalNumber, toBaseInput);
+    
     ans = sign === '-' ? sign + ans : ans;
 
     document.getElementById("result").textContent = ans;
