@@ -78,6 +78,8 @@ input, select {
     margin-top: 20px;
     text-align: center;
     color: #e74c3c;
+    overflow-wrap: break-word; /* This property allows long words to break and wrap onto the next line */
+
 }
 
 /* Media Queries for Responsiveness */
