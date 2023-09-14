@@ -1,38 +1,43 @@
 function convertNumber() {
 
-    const numberInput = document.getElementById("number").value;
+    const NumberInput = document.getElementById("number").value;
     const fromBaseInput = parseInt(document.getElementById("fromBase").value);
     const toBaseInput = parseInt(document.getElementById("toBase").value);
+    // remove spaces from start and end of input
+    const numberInput = NumberInput.trim();
+
+    let sign = '+';
 
     // convert the input sting into array of digits
     function convertStringToCustomBaseArray(numberInput) {
         const digitArray = [];
+        let i;
+        if (numberInput[0] === '-') {
+            i = 1;
+            sign = '-';
+        } else {
+            i = 0;
+        }
 
-        for (let i = 0; i < numberInput.length; i++) {
+        for (; i < numberInput.length; i++) {
             const char = numberInput[i].toLowerCase();
             let value;
-
-            if (char >= 'a' && char <= 'z') {
+            if (char >= 'a' && char <= 'z') {    // convert a to z into respective numbers 10 to 35
 
                 value = char.charCodeAt(0) - 'a'.charCodeAt(0) + 10;
 
             } else if (char >= '0' && char <= '9') {
                 value = parseInt(char);
             }
-
-
-
             digitArray.push(value);
         }
-
-
         return digitArray;
     }
-    const digitArray = convertStringToCustomBaseArray(numberInput);
+
 
     // check if the input string is valid 
     function isValid(result, base) {
-        for (let i = 0; i < digitArray.length; i++) {
+        for (let i = 1; i < digitArray.length; i++) {
             if (digitArray[i] === undefined || digitArray[i] > base) {
                 return false;
             }
@@ -40,15 +45,13 @@ function convertNumber() {
         return true;
     }
 
-    if (!isValid(digitArray, fromBaseInput)) {
-        document.getElementById("result").textContent = "Invalid input";
-        return
-    }
+
     // convert  digit array into decimal number
     function decimalConvertor(digitArray, from_base) {
         let decimal = 0;
         let multipal = 1;
         for (let index = digitArray.length - 1; index >= 0; index--) {
+
             decimal += parseInt(digitArray[index] * multipal);
             multipal *= from_base;
 
@@ -56,9 +59,7 @@ function convertNumber() {
         return decimal
     }
     // convert decimal number into required base
-    let decimalNumber = decimalConvertor(digitArray, fromBaseInput);
 
-    
     function requiredBaseConverter(decimal_number, to_base) {
 
         const digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -73,8 +74,16 @@ function convertNumber() {
         return ans;
     }
 
-    let ans = requiredBaseConverter(decimalNumber, toBaseInput);
 
+
+    const digitArray = convertStringToCustomBaseArray(numberInput);
+    if (!isValid(digitArray, fromBaseInput)) {
+        document.getElementById("result").textContent = "Invalid input";
+        return
+    }
+    let decimalNumber = decimalConvertor(digitArray, fromBaseInput);
+    let ans = requiredBaseConverter(decimalNumber, toBaseInput);
+    ans = sign === '-' ? sign + ans : ans;
 
     document.getElementById("result").textContent = ans;
 
