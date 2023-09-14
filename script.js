@@ -55,10 +55,10 @@ function convertNumber() {
         }
         return decimal
     }
-
+    // convert decimal number into required base
     let decimalNumber = decimalConvertor(digitArray, fromBaseInput);
 
-
+    
     function requiredBaseConverter(decimal_number, to_base) {
 
         const digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
